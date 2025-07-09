@@ -11,15 +11,12 @@ type ListNode struct {
 // Find middle node using slow and fast pointers
 func findMiddle(head *ListNode) *ListNode {
 	slow, fast := head, head
-	count := 0
 
 	for fast != nil && fast.Next != nil {
-		count++
 		slow = slow.Next
 		fast = fast.Next.Next
 	}
 
-	fmt.Println(count)
 	return slow
 }
 

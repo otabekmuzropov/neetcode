@@ -5,6 +5,7 @@ import "fmt"
 type ListNode struct {
 	Val  int
 	Next *ListNode
+	Prev *ListNode
 }
 
 func main() {
@@ -19,6 +20,8 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 		lastA *ListNode
 		lastB *ListNode
 	)
+
+	lastA = lastB
 
 	for headA.Next != nil {
 		lastA = headA

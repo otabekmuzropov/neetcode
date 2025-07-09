@@ -1,18 +1,9 @@
 package main
 
-import "fmt"
-
 func main() {
-
-	a := &ListNode{1, nil}
-	b := &ListNode{2, a}
-	c := b
-	fmt.Println(&c, &b)
-	c = c.Next
-	fmt.Println(&c)
-	fmt.Println(&b.Next)
-
-	reverseList(b)
+	nums := []int{1, 2, 3, 4, 5, 6}
+	node := buildList(nums)
+	reverseList(node)
 }
 
 type ListNode struct {
@@ -21,7 +12,38 @@ type ListNode struct {
 }
 
 func reverseList(head *ListNode) *ListNode {
-	resp := &ListNode{}
-	return resp
+	if head == nil {
+		return head
+	}
 
+	var (
+		prev  *ListNode
+		cur   = head
+		count int
+	)
+
+	for cur != nil {
+		count++
+		temp := cur.Next
+		cur.Next = prev
+		prev = cur
+		cur = temp
+	}
+
+	return prev
+}
+
+// Helper to create list from slice
+func buildList(values []int) *ListNode {
+	if len(values) == 0 {
+		return nil
+	}
+
+	head := &ListNode{Val: values[0]}
+	curr := head
+	for _, v := range values[1:] {
+		curr.Next = &ListNode{Val: v}
+		curr = curr.Next
+	}
+	return head
 }
