@@ -1,14 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []any{4, 2, 7, 1, 3}
-	node := buildTreeFromSlice(nums)
-	fmt.Println(searchBST(node, 2))
-}
+import "fmt"
 
 type TreeNode struct {
 	Val   int
@@ -16,25 +8,28 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func searchBST(root *TreeNode, val int) *TreeNode {
+func main() {
+	nums := []any{4, 2, 7, 1, 3}
+	node := buildTreeFromSlice(nums)
+	fmt.Println(bfs(node))
+	fmt.Println(bfs((insertIntoBST(node, 5))))
+}
 
+func insertIntoBST(root *TreeNode, val int) *TreeNode {
+	fmt.Println(bfs(root))
 	if root == nil {
-		return nil
-	}
-
-	if root.Val == val {
-		return root
+		return &TreeNode{
+			Val: val,
+		}
 	}
 
 	if val > root.Val {
-		return searchBST(root.Right, val)
+		root.Right = insertIntoBST(root.Right, val)
+	} else {
+		root.Left = insertIntoBST(root.Left, val)
 	}
 
-	if val < root.Val {
-		return searchBST(root.Left, val)
-	}
-
-	return nil
+	return root
 }
 
 func buildTreeFromSlice(values []any) *TreeNode {
@@ -68,4 +63,29 @@ func buildTreeFromSlice(values []any) *TreeNode {
 	}
 
 	return root
+}
+
+func bfs(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	resp := []int{}
+	queue := []*TreeNode{root}
+
+	for len(queue) > 0 {
+		cur := queue[0]
+		queue = queue[1:]
+		resp = append(resp, cur.Val)
+
+		if cur.Left != nil {
+			queue = append(queue, cur.Left)
+		}
+
+		if cur.Right != nil {
+			queue = append(queue, cur.Right)
+		}
+	}
+
+	return resp
 }
