@@ -7,7 +7,6 @@ import (
 func FindUnique(nums []int) int {
 	res := 0
 	for _, num := range nums {
-		fmt.Println(res)
 		res ^= num
 	}
 

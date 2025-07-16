@@ -1,48 +1,26 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"net/http"
-	"net/url"
-	"strings"
-	"time"
-)
+import "fmt"
 
 func main() {
-	fmt.Println(strings.Fields("task_mangement"))
-	escapedQuery := url.QueryEscape("task")
-	fmt.Println(escapedQuery)
-	icon, err := searchIcons(escapedQuery)
-	if err != nil {
-		log.Fatal("Error:", err)
-	}
-	fmt.Println("First icon found:", icon)
-}
+	nums := []int{4, 8, 2, 10}
+	sums := make([]int, len(nums))
+	sums[0] = nums[0]
 
-type IconSearchResponse struct {
-	Icons []string `json:"icons"`
-}
-
-func searchIcons(query string) (string, error) {
-	url := fmt.Sprintf("https://api.iconify.design/search?query=%s", query)
-
-	client := http.Client{Timeout: 10 * time.Second}
-	resp, err := client.Get(url)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	var result IconSearchResponse
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return "", err
+	for i := 1; i < len(nums); i++ {
+		sums[i] = sums[i-1] ^ nums[i]
 	}
 
-	if len(result.Icons) == 0 {
-		return "", fmt.Errorf("no icons found for query: %s", query)
-	}
+	fmt.Println(sums)
 
-	return result.Icons[0], nil
+	queries := [][]int{{2, 3}, {1, 3}, {0, 0}, {0, 3}}
+	for _, pairs := range queries {
+		if pairs[0] == pairs[1] {
+			fmt.Println(nums[pairs[0]])
+		} else if pairs[0] == 0 {
+			fmt.Println(sums[pairs[1]])
+		} else {
+			fmt.Println(sums[pairs[1]] ^ sums[pairs[0]-1])
+		}
+	}
 }
