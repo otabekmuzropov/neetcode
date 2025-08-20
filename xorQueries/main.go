@@ -1,7 +1,11 @@
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	arr := []int{16}
+	queries := [][]int{{0, 0}, {0, 0}, {0, 0}}
+	fmt.Println(xorQueries(arr, queries))
 }
 
 func xorQueries(arr []int, queries [][]int) []int {
