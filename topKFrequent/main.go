@@ -1,14 +1,15 @@
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	fmt.Println(topKFrequent([]int{}, 1))
 }
 
 func topKFrequent(nums []int, k int) []int {
-	m := make(map[int]int)
-	for i := range nums {
-		m[nums[i]]++
+	if k == 0 {
+		return nil
 	}
 
-	return nil
+	return nums
 }

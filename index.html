@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Stripe.js — Create Visa Token</title>
+  <style>
+    /* tiny styling for the element */
+    .StripeElement {
+      box-sizing: border-box;
+      height: 40px;
+      padding: 8px 12px;
+      border: 1px solid #ccd0d2;
+      border-radius: 4px;
+      background: white;
+      margin-bottom: 12px;
+    }
+    .error { color: #fa755a; }
+  </style>
+</head>
+<body>
+  <h1>Pay (test)</h1>
+
+  <!-- Card container -->
+  <div id="card-element" class="StripeElement"></div>
+  <div id="card-errors" role="alert" class="error"></div>
+
+  <button id="pay-btn">Create Token</button>
+
+  <!-- Stripe.js v3 -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    // 1) Initialize Stripe with your publishable key
+    const stripe = Stripe('pk_live_51QvC6qCx1p2EqOQppTBBcUN5K0PMMp0j8OweixKmnS4QVYEkbn9SaTQ9AWZMQqCz6FgIWrfj8QMssl8lvRCBlBhd00IBajpYUS'); // <-- replace
+
+    // 2) Create an instance of Elements
+    const elements = stripe.elements();
+
+    // 3) Create and mount the card Element (single input for card number/exp/CVC)
+    const style = {
+      base: {
+        fontSize: '16px',
+        color: '#32325d',
+        '::placeholder': { color: '#a0aec0' }
+      }
+    };
+    const card = elements.create('card', { style });
+    card.mount('#card-element');
+
+    // 4) Show validation errors from the card Element
+    const errorDiv = document.getElementById('card-errors');
+    card.on('change', function(event) {
+      errorDiv.textContent = event.error ? event.error.message : '';
+    });
+
+    // 5) On button click, create a token
+    document.getElementById('pay-btn').addEventListener('click', async function(ev) {
+      ev.preventDefault();
+      // optional: collect billing details you want associated with the token
+      const billingDetails = {
+        name: 'Jenny Tester',            // optional
+        email: 'jenny@example.com'      // optional
+      };
+
+      const result = await stripe.createToken(card, billingDetails);
+
+      if (result.error) {
+        // Show error in UI
+        errorDiv.textContent = result.error.message;
+      } else {
+        // Got token: result.token.id (e.g. "tok_1Hx...")
+        const token = result.token;
+        console.log('Token created:', token);
+
+        // Send token.id to your server for charging / attaching to customer
+        // Example: POST to /charge with JSON body { token: token.id }
+        fetch('/charge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token.id })
+        })
+        .then(r => r.json())
+        .then(data => {
+          console.log('Server response:', data);
+          // show success to user
+        })
+        .catch(err => {
+          console.error('Network error:', err);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
