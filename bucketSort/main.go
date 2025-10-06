@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	arr := []int{3, 2, 5, 7, 3, 5, -1}
 	fmt.Println(bucketSort(arr)) // 0,0,1,1,1,2,2
-	fmt.Println(bucket(arr))
+	// fmt.Println(bucket(arr))
 }
 
 func bucket(arr []int) []int {
@@ -45,39 +45,36 @@ func bucket(arr []int) []int {
 }
 
 func bucketSort(arr []int) []int {
-	if len(arr) == 0 {
+	l := len(arr)
+	if l == 0 {
 		return arr
 	}
 
 	maxi, mini := arr[0], arr[0]
 	for _, val := range arr {
-		if val > maxi {
-			maxi = val
-		}
-
-		if val < mini {
-			mini = val
-		}
+		maxi = max(maxi, val)
+		mini = min(mini, val)
 	}
 
-	shift := -mini
-	out := make([]int, maxi-mini+1)
-	fmt.Println(mini, maxi)
+	shift := 0
+
+	if mini < 0 {
+		shift = -mini
+	}
+
+	out := make([]int, maxi+shift+1)
 
 	for _, val := range arr {
-		fmt.Println(val + shift)
 		out[val+shift]++
 	}
 
 	i := 0
 	for idx, val := range out {
 		for range val {
-			arr[idx] = idx - shift
+			arr[i] = idx - shift
 			i++
 		}
 	}
-
-	fmt.Println(out)
 
 	return arr
 }
