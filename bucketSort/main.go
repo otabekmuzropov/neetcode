@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	arr := []int{3, 2, 5, 7, 3, 5, -1}
 	fmt.Println(bucketSort(arr)) // 0,0,1,1,1,2,2
-	// fmt.Println(bucket(arr))
+	fmt.Println(bucket(arr))
 }
 
 func bucket(arr []int) []int {
