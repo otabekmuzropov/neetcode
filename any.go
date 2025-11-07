@@ -5,10 +5,5 @@ import (
 )
 
 func main() {
-	a("")
-}
-
-func a(a string) {
-	var b *string = &a
-	fmt.Println(b)
+	fmt.Println(7 ^ 8)
 }
