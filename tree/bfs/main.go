@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	root := buildTreeFromSlice([]any{2, 1, 3, nil, nil, 0, 1})
+	root := buildTreeFromSlice([]any{1, 2, 2, 3, 4, 4, 3})
 	fmt.Println(bfs(root))
 	fmt.Println(inorder(root))
 	fmt.Println(preorder(root))
