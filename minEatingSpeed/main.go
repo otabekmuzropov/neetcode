@@ -67,7 +67,6 @@ func minEatingSpeed(piles []int, h int) int {
 	low, high := 0, maxi
 	for low <= high {
 		mid := low + (high-low)/2
-		fmt.Println("mid ", mid, low, high, mini)
 
 		count = calculateHours(piles, mid)
 		if count > h {
