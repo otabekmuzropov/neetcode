@@ -17,12 +17,10 @@ func sortedSquares(nums []int) []int {
 		startSqr := nums[i] * nums[i]
 		endSqr := nums[j] * nums[j]
 		if startSqr > endSqr {
-			fmt.Println("numsi", nums[i])
 			resp[len(resp)-1-counter] = startSqr
 			counter++
 			i++
 		} else {
-			fmt.Println("numsj", nums[j])
 
 			resp[len(resp)-1-counter] = endSqr
 			counter++
