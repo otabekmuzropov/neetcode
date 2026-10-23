@@ -9,7 +9,6 @@ func main() {
 	node := buildTreeFromSlice(nums)
 	// fmt.Println(rangeSumBST(node, 6, 10))
 	fmt.Println(rangeSumBSTIterative(node, 6, 10))
-	fmt.Println("here")
 }
 
 type TreeNode struct {
@@ -55,8 +54,6 @@ func rangeSumBST(root *TreeNode, low int, high int) int {
 	if root == nil {
 		return 0
 	}
-
-	fmt.Println("value of root: ", root.Val)
 
 	resp := 0
 
