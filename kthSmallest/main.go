@@ -34,7 +34,6 @@ func inorderLimited(node *TreeNode, n int, count *int, result *[]int) {
 	if node == nil || *count >= n {
 		return
 	}
-	fmt.Println("here again", node.Val)
 
 	inorderLimited(node.Left, n, count, result)
 
