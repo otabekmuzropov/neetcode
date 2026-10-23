@@ -15,7 +15,6 @@ func LongestPalindrome(s string) string {
 	lngth := len(s)
 	for i := 0; i < lngth; i++ {
 		for j := lngth - 1; j >= i; j-- {
-			fmt.Println("here again", s[i:j+1], j-i)
 			if isPalindrome(s[i:j+1]) && maxV < j-i {
 				resp = s[i : j+1]
 				maxV = j - i
