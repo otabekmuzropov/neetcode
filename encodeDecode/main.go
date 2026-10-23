@@ -1,5 +1,7 @@
 package main
 
+import "strings"
+
 import "fmt"
 
 func main() {
@@ -18,16 +20,16 @@ type Solution struct {
 
 func (s *Solution) Encode(strs []string) string {
 	delimiter := make([]int, len(strs))
-	resp := ""
+	var resp strings.Builder
 
 	for i, str := range strs {
-		resp += str
+		resp.WriteString(str)
 		delimiter[i] = len(str)
 	}
 
 	s.delimiter = delimiter
 
-	return resp
+	return resp.String()
 }
 
 func (s *Solution) Decode(str string) []string {
