@@ -8,7 +8,6 @@ func main() {
 	nums := []any{1, 2, 3, 4, 5}
 	node := buildTreeFromSlice(nums)
 	fmt.Println(sumOfLeftLeaves(node))
-	fmt.Println("here")
 }
 
 type TreeNode struct {
