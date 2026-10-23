@@ -39,5 +39,5 @@ func main() {
 	// Example list: [1, 2, 3, 4, 5]
 	head := buildList([]int{1, 2, 3, 4, 5, 6})
 	middle := findMiddle(head)
-	fmt.Println("Middle Node Value:", middle.Val)
+	fmt.Println(middle.Val)
 }
