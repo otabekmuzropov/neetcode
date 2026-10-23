@@ -15,13 +15,8 @@ func bucket(arr []int) []int {
 
 	var maxi, mini = arr[0], arr[0]
 	for _, val := range arr {
-		if val > maxi {
-			maxi = val
-		}
-
-		if val < mini {
-			mini = val
-		}
+		maxi = max(maxi, val)
+		mini = min(mini, val)
 	}
 
 	intended := make([]int, maxi+1)
